@@ -59,8 +59,12 @@
     CGAffineTransform fromViewTransform = CGAffineTransformMakeTranslation(-translation, 0.0);
     
     // 设置toView的初始位置
+    // Note: 将动画设置成Linear，是为了解决通过手势控制转场时，转场进度和手势移动距离不匹配的问题
     toView.transform = toViewTransform;
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+    [UIView animateWithDuration:[self transitionDuration:transitionContext]
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
         // 设置toView和fromView动画的目标位置
         fromView.transform = fromViewTransform;
         toView.transform = CGAffineTransformIdentity;
